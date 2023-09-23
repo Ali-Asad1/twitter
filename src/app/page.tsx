@@ -1,7 +1,9 @@
+import Header from "@/components/header/Header";
+
 export default function Home() {
   return (
-    <main>
-      <h1>hello world :))</h1>
-    </main>
+    <section className="col-span-2 lg:col-span-2 border-x border-slate-6">
+      <Header lable="Home" showBackArrow />
+    </section>
   );
 }
