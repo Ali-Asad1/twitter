@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-
-import Grid from "@/components/shared/Grid";
-import Sidebar from "@/components/layout/sidebar/Sidebar";
-import Followbar from "@/components/layout/followBar/FollowBar";
+import { poppins, roboto, chirp } from "@/libs/fonts";
 
 import "./globals.css";
 
@@ -14,8 +11,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark" style={{ colorScheme: "dark" }} suppressHydrationWarning>
-      <body>
+    <html
+      lang="en"
+      className={`${poppins.variable} ${roboto.variable} ${chirp.variable} dark`}
+      style={{ colorScheme: "dark" }}
+      suppressHydrationWarning
+    >
+      <body className={chirp.className}>
         <main className="w-full h-full">{children}</main>
       </body>
     </html>
