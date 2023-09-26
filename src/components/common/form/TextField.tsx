@@ -2,9 +2,11 @@ import { cn } from "@/utils/clsx";
 import { useField } from "formik";
 import { forwardRef } from "react";
 
-interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label: string;
+}
 
-const TextField = forwardRef<HTMLInputElement, TextFieldProps>(({ ...props }, ref) => {
+const TextField = forwardRef<HTMLInputElement, TextFieldProps>(({ label, ...props }, ref) => {
   const [field, meta] = useField(props.name as string);
 
   return (
@@ -28,10 +30,10 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(({ ...props }, re
           meta.error && field.value && "text-red-9"
         )}
       >
-        Username
+        {label}
       </label>
       {meta.touched && meta.error && (
-        <p className="absolute -bottom-5 left-[12px] text-sm text-red-9">{meta.error}</p>
+        <p className="absolute -bottom-6 left-[12px] text-sm text-red-9">{meta.error}</p>
       )}
     </div>
   );
