@@ -16,13 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="dark" style={{ colorScheme: "dark" }} suppressHydrationWarning>
       <body>
-        <main className="h-screen">
-          <Grid>
-            <Sidebar />
-            {children}
-            <Followbar />
-          </Grid>
-        </main>
+        <main className="w-full h-full">{children}</main>
       </body>
     </html>
   );
