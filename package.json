@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^5.3.1",
     "@types/node": "20.6.3",
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@radix-ui/colors": "^3.0.0-rc.4",
+    "prisma": "^5.3.1",
     "windy-radix-palette": "^1.0.0-rc.0"
   }
 }
