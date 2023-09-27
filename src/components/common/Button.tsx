@@ -3,7 +3,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/clsx";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-xl text-base font-semibold focus-visible:outline-none ring-offset-background px-5 transition-all select-none",
+  "inline-flex items-center justify-center rounded-xl text-base font-semibold focus-visible:outline-none ring-offset-background px-5 transition-all select-none disabled:pointer-events-none disabled:opacity-80",
   {
     variants: {
       btnStyle: {
