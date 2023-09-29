@@ -26,13 +26,13 @@ export const authOptions: AuthOptions = {
         });
 
         if (!user || !user.hashedPassword) {
-          throw new Error("Invalid credential");
+          throw new Error("Invalid email");
         }
 
-        const isCorrectPassword = bcrypt.compare(credentials.password, user.hashedPassword);
+        const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword);
 
         if (!isCorrectPassword) {
-          throw new Error("Invalide credential");
+          throw new Error("Password is incorrect");
         }
 
         return user;
