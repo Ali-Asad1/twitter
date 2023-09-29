@@ -3,9 +3,9 @@
 import AuthProvider from "@/providers/AuthProvider";
 import QueryProvider from "@/providers/QueryProvider";
 
-const Providers = ({ children, session }: { children: React.ReactNode; session: any }) => {
+const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
-    <AuthProvider session={session}>
+    <AuthProvider>
       <QueryProvider>{children}</QueryProvider>
     </AuthProvider>
   );
