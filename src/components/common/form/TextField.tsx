@@ -33,7 +33,9 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(({ label, ...prop
         {label}
       </label>
       {meta.touched && meta.error && (
-        <p className="absolute -bottom-6 left-[12px] text-sm text-red-9">{meta.error}</p>
+        <p className="absolute bottom-0 left-[12px] translate-y-[calc(100%+2px)] text-sm text-red-9">
+          {meta.error}
+        </p>
       )}
     </div>
   );
