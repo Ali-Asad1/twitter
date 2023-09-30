@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { poppins, roboto, chirp } from "@/libs/fonts";
 
 import Providers from "./providers";
+import ToastContext from "@/context/ToastContext";
 
 import "./globals.css";
 
@@ -22,6 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     >
       <body className={chirp.className}>
         <Providers>
+          <ToastContext />
           <main className="w-full h-full">{children}</main>
         </Providers>
       </body>
