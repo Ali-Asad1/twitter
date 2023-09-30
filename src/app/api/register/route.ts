@@ -25,7 +25,8 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           errors: {
-            password: "password is week",
+            password:
+              "Your password needs to contain one uppercase letter, one symbol, and a number",
           },
         },
         { status: 400, statusText: "bad request" }
@@ -49,7 +50,7 @@ export async function POST(request: Request) {
         return NextResponse.json(
           {
             errors: {
-              email: "email entered has already been used",
+              email: "Email has already been taken",
             },
           },
           { status: 400, statusText: "bad request" }
@@ -58,7 +59,7 @@ export async function POST(request: Request) {
         return NextResponse.json(
           {
             errors: {
-              username: "username has already been used try another one",
+              username: "Username has already been taken try another one!",
             },
           },
           { status: 400, statusText: "bad request" }
