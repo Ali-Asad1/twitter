@@ -2,11 +2,7 @@
 
 import { SessionProvider } from "next-auth/react";
 
-interface AuthProviderProps {
-  children: React.ReactNode;
-}
-
-const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   return <SessionProvider>{children}</SessionProvider>;
 };
 export default AuthProvider;

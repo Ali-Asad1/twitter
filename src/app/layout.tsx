@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 
 import { poppins, roboto, chirp } from "@/libs/fonts";
 
+import Providers from "./providers";
+
 import "./globals.css";
-import AuthContext from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: "Twitter",
@@ -20,9 +21,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       suppressHydrationWarning
     >
       <body className={chirp.className}>
-        <AuthContext>
+        <Providers>
           <main className="w-full h-full">{children}</main>
-        </AuthContext>
+        </Providers>
       </body>
     </html>
   );
