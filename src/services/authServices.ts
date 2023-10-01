@@ -1,9 +1,9 @@
-import apiConfig from "./config/axios";
+import axios from "axios";
 
-export const registerUser = (data: any) => {
-  return apiConfig.post("/register", data);
+export const registerUser = async (data: any) => {
+  return await axios.post("/register", data);
 };
 
-export const getCurrentUser = () => {
-  return apiConfig.get("/current");
+export const getCurrentUser = async () => {
+  return await axios.get("/current");
 };
