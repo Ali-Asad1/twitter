@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Formik, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import Button from "@/components/common/Button";
 import TextField from "@/components/common/form/TextField";
 import { registerUser } from "@/services/authServices";
+import { useEffect } from "react";
 
 interface RegisterFormValues {
   email: string;
@@ -45,6 +46,11 @@ const validationSchema = Yup.object({
 
 export default function RegisterPage() {
   const { push } = useRouter();
+  const session = useSession();
+  useEffect(() => {
+    if (session.status === "authenticated") push("/");
+  }, [session.status]);
+
   const RegisterHandler = async (
     { email, name, password, username }: RegisterFormValues,
     actions: FormikHelpers<RegisterFormValues>
