@@ -8,7 +8,7 @@ const TweetButton = () => {
         Tweet
       </Button>
       <Button btnType="iconOnly" btnSize="lg" className="block lg:hidden">
-        <FaFeather size={24} />
+        <FaFeather size={22} />
       </Button>
     </>
   );
