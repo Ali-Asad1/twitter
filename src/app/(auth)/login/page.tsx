@@ -1,10 +1,16 @@
 "use client";
 
-import Button from "@/components/common/Button";
-import TextField from "@/components/common/form/TextField";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
 import { Formik, Form, FormikHelpers } from "formik";
-import Link from "next/link";
 import * as Yup from "yup";
+import Link from "next/link";
+import toast from "react-hot-toast";
+
+import { getCurrentUser } from "@/services/authServices";
+import TextField from "@/components/common/form/TextField";
+import Button from "@/components/common/Button";
 
 interface LoginFormValues {
   email: string;
@@ -22,8 +28,45 @@ const validationSchema = Yup.object({
 });
 
 export default function LoginPage() {
-  const loginHandler = (values: LoginFormValues, actions: FormikHelpers<LoginFormValues>) => {
-    console.log(values);
+  const { push } = useRouter();
+  const session = useSession();
+
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      push("/");
+    }
+  }, [session.status]);
+
+  const loginHandler = async (values: LoginFormValues) => {
+    const toastId = toast.loading("Loading...");
+
+    await signIn("credentials", {
+      ...values,
+      redirect: false,
+    }).then(async (callback) => {
+      if (callback?.ok && !callback.error) {
+        const { username } = await getCurrentUser().then((res) => res.data);
+
+        toast.success(`Welcome ${username || ""} `, {
+          id: toastId,
+        });
+        const url = new URL(callback?.url as string);
+        const urlParams = new URLSearchParams(url.search);
+        const callbackUrl = urlParams.get("callbackUrl");
+
+        if (callbackUrl) {
+          push(callbackUrl);
+        } else {
+          push("/");
+        }
+      }
+
+      if (callback?.error) {
+        toast.error(callback.error, {
+          id: toastId,
+        });
+      }
+    });
   };
 
   return (
@@ -40,13 +83,16 @@ export default function LoginPage() {
         initialValues={initialValues}
         onSubmit={loginHandler}
         validationSchema={validationSchema}
+        validateOnMount
       >
-        {({}) => (
+        {({ isValid, isSubmitting }) => (
           <Form>
             <div className="space-y-8">
               <TextField name="email" type="text" label="Email" />
               <TextField name="password" type="password" label="Password" />
-              <Button btnWidth="full">Login</Button>
+              <Button btnWidth="full" type="submit" disabled={!isValid || isSubmitting}>
+                {isSubmitting ? "loading ..." : "Login"}
+              </Button>
               <p className="text-slate-10 text-center">
                 First time using Twitter ?{" "}
                 <Link
