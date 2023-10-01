@@ -45,9 +45,9 @@ export default function LoginPage() {
       redirect: false,
     }).then(async (callback) => {
       if (callback?.ok && !callback.error) {
-        const { username } = await getCurrentUser();
+        const { name } = await getCurrentUser();
 
-        toast.success(`Welcome ${username || ""} `, {
+        toast.success(`Welcome ${name || ""} `, {
           id: toastId,
         });
         const url = new URL(callback?.url as string);
