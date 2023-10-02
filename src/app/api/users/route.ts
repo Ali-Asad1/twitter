@@ -10,6 +10,7 @@ export async function GET() {
       take: 10,
       select: {
         id: true,
+        username: true,
       },
     });
 
