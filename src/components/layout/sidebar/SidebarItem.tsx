@@ -28,7 +28,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ label, icon: Icon, href, onCl
         btnStyle="tertiary"
         className="hidden lg:flex justify-start gap-x-3 text-slate-12"
       >
-        <Icon size={22} className="fill-slate-12" />
+        <Icon size={22} className="fill-slate-11" />
         {label}
       </Button>
       <Button
@@ -38,7 +38,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ label, icon: Icon, href, onCl
         btnType="iconOnly"
         className="flex lg:hidden"
       >
-        <Icon size={22} className="fill-slate-12" />
+        <Icon size={22} className="fill-slate-11" />
       </Button>
     </>
   );
