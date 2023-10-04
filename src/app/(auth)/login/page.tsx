@@ -3,12 +3,12 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
-import { Formik, Form, FormikHelpers } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
-import { getCurrentUser } from "@/services/authServices";
+import { getCurrentUser } from "@/services/user";
 import TextField from "@/components/common/form/TextField";
 import Button from "@/components/common/Button";
 
