@@ -27,7 +27,6 @@ export const authOptions: AuthOptions = {
           })
           .catch((err) => err);
 
-        console.log(user);
         if (user?.code) {
           throw new Error("Please try again");
         }
