@@ -3,10 +3,10 @@
 import { getUser } from "@/services/user";
 import { useQuery } from "@tanstack/react-query";
 
-const useUser = (userId: string) => {
+const useUser = (username: string) => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["user", userId],
-    queryFn: () => getUser(userId),
+    queryKey: ["user", username],
+    queryFn: () => getUser(username),
   });
 
   return { data, isLoading, error };
