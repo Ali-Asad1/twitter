@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@radix-ui/colors": "^3.0.0-rc.4",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@types/bcrypt": "^5.0.0",
     "prisma": "^5.3.1",
     "windy-radix-palette": "^1.0.0-rc.0"
