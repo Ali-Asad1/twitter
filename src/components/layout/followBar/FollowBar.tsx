@@ -2,8 +2,8 @@
 
 import useAllUsers from "@/hooks/useAllUsers";
 import UserItem from "./UserItem";
-import UserItemLoading from "./UserItemLoading";
 import NotFoundFollowers from "./NotFoundFollowers";
+import { PuffLoader } from "react-spinners";
 
 const Followbar = () => {
   const { data, error, isLoading } = useAllUsers();
@@ -12,9 +12,9 @@ const Followbar = () => {
       <div className="max-h-[400px] bg-slate-3 rounded-xl p-4 overflow-y-auto">
         <div className="flex flex-col gap-y-5 ">
           {isLoading ? (
-            Array(5)
-              .fill(1)
-              .map((_, i) => <UserItemLoading key={i} />)
+            <div className="w-full h-full flex justify-center items-center">
+              <PuffLoader size={30} color="#0090ff" />
+            </div>
           ) : !data.length && error ? (
             <NotFoundFollowers />
           ) : (
