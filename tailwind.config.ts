@@ -16,6 +16,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("windy-radix-palette")],
+  corePlugins: {
+    aspectRatio: false,
+  },
+  plugins: [require("windy-radix-palette"), require("@tailwindcss/aspect-ratio")],
 };
 export default config;
