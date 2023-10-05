@@ -1,10 +1,11 @@
 "use client";
 
 import { getUser } from "@/services/user";
+import { UserType } from "@/types/user.type";
 import { useQuery } from "@tanstack/react-query";
 
 const useUser = (username: string) => {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<UserType>({
     queryKey: ["user", username],
     queryFn: () => getUser(username),
   });
