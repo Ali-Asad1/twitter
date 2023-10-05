@@ -13,6 +13,18 @@ const getCurrentUser = async () => {
       where: {
         email: session.user.email as string,
       },
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        image: true,
+        profileImage: true,
+        coverImage: true,
+        bio: true,
+        followingIds: true,
+        posts: true,
+        createdAt: true,
+      },
     });
 
     if (!currentUser) {
