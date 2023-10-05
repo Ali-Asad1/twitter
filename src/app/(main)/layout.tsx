@@ -6,7 +6,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <Grid>
       <Sidebar />
-      {children}
+      <section className="col-span-2 border-x border-slate-6">{children}</section>
       <Followbar />
     </Grid>
   );
