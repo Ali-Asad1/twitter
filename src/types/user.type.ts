@@ -19,4 +19,5 @@ export type UserType = {
   posts: PostType[];
   comments: CommentType[];
   notifications: NotificationType[];
+  followersCount: number;
 };
