@@ -10,8 +10,12 @@ import SidebarLogo from "./SidebarLogo";
 import SidebarItem from "./SidebarItem";
 import TweetButton from "./TweetButton";
 import SidebarLoadingItem from "./SidebarLoadingItem";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 export default function Sidebar() {
+  const session = useSession();
+  const { data: currentUser } = useCurrentUser();
+
   const items = {
     authenticated: [
       {
@@ -26,7 +30,7 @@ export default function Sidebar() {
       },
       {
         label: "Profile",
-        href: "/users/test",
+        href: `/user/${currentUser?.username || ""}`,
         icon: FaUser,
       },
     ],
@@ -43,8 +47,6 @@ export default function Sidebar() {
       },
     ],
   };
-
-  const session = useSession();
 
   return (
     <div className="col-span-1 h-full pr-6 py-4">
