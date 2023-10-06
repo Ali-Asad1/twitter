@@ -24,6 +24,7 @@ const UserHero = ({ username }: { username: string }) => {
       </div>
       <Avatar
         username={username}
+        src={data?.profileImage}
         border="lg"
         size="lg"
         className="absolute bottom-0 left-5 translate-y-[50%]"
