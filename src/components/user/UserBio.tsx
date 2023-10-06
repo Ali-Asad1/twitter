@@ -39,7 +39,7 @@ const UserBio = ({ username }: { username: string }) => {
         <p className="font-poppins text-sm">{user?.bio}</p>
         <div className="flex items-center gap-x-1 mt-4">
           <BiCalendar size={16} className="fill-slate-10" />
-          <p className="text-sm text-slate-10">{userCreateDate}</p>
+          <p className="text-sm text-slate-10">Joined {userCreateDate}</p>
         </div>
         <div className="flex gap-x-4 mt-4">
           <div className="flex gap-x-1">
