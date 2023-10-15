@@ -5,15 +5,14 @@ export const useClickOutSide = (ref: React.RefObject<Element>, onClick: () => vo
     if (ref.current && !ref.current.contains(event?.target as Node)) {
       onClick();
     }
-
-    useEffect(() => {
-      document.addEventListener("mousedown", clickHandler);
-      document.addEventListener("touchmove", clickHandler);
-
-      return () => {
-        document.removeEventListener("mousedown", clickHandler);
-        document.removeEventListener("touchmove", clickHandler);
-      };
-    }, [ref, onClick]);
   };
+  useEffect(() => {
+    document.addEventListener("mousedown", clickHandler);
+    document.addEventListener("touchmove", clickHandler);
+
+    return () => {
+      document.removeEventListener("mousedown", clickHandler);
+      document.removeEventListener("touchmove", clickHandler);
+    };
+  }, [ref, onClick]);
 };
