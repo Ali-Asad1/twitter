@@ -22,7 +22,7 @@ const buttonVariants = cva(
         rightIcon: "ring-1 ring-slate-6 flex justify-center items-center",
       },
       btnSize: {
-        sm: "h-10 rounded-[10px]",
+        sm: "h-10",
         md: "h-12",
         lg: "h-14",
       },
