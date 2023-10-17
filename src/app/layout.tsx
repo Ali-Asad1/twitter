@@ -4,6 +4,7 @@ import { poppins, roboto, chirp } from "@/libs/fonts";
 
 import Providers from "./providers";
 import ToastContext from "@/context/ToastContext";
+import ModalContext from "@/context/ModalContext";
 
 import "./globals.css";
 
@@ -24,6 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={chirp.className}>
         <Providers>
           <ToastContext />
+          <ModalContext />
           <main className="w-full h-full">{children}</main>
         </Providers>
       </body>
