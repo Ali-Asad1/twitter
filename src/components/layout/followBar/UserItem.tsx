@@ -16,7 +16,7 @@ const UserItem = ({ username }: UserProps) => {
   if (isLoading) return <UserItemLoading />;
   return (
     <div className="grid grid-cols-[auto_1fr] items-center gap-x-3">
-      <Avatar username={username} clickAble />
+      <Avatar username={username} clickAble src={data?.profileImage} />
       <div className="">
         <p className="text-slate-12 line-clamp-1 ">{data?.name}</p>
         <p className="text-slate-11 text-sm">@{data?.username}</p>
