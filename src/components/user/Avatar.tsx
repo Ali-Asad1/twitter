@@ -57,6 +57,7 @@ const Avatar: React.FC<AvatarProps> = ({ username, border, size, src, className,
         blurDataURL={imageSrc}
         loading="lazy"
         fill
+        objectFit="cover"
       />
     </div>
   );
