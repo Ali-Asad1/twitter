@@ -11,3 +11,7 @@ export const getAllUsers = async () => {
 export const getUser = async (username: string) => {
   return await axios.get(`/api/users/${username}`).then((res) => res.data);
 };
+
+export const editUserProfile = async (avatar: string) => {
+  return await axios.patch("/api/user/edit/avatar", { avatar }).then((res) => res.data);
+};
