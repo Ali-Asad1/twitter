@@ -1,6 +1,8 @@
-import type { Config } from "tailwindcss";
+const { createPlugin } = require("windy-radix-palette");
+const colors = createPlugin();
 
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -19,6 +21,5 @@ const config: Config = {
   corePlugins: {
     aspectRatio: false,
   },
-  plugins: [require("windy-radix-palette"), require("@tailwindcss/aspect-ratio")],
+  plugins: [colors.plugin, require("@tailwindcss/aspect-ratio")],
 };
-export default config;
