@@ -44,35 +44,24 @@ const EditProfileModal = () => {
   }, [isLoading]);
 
   return (
-    <>
-      <AnimatePresence>
-        {isOpen && (
-          <Modal onClose={onClose}>
-            <div className="w-full h-full pt-5 flex flex-col">
-              <div className="flex justify-center mb-5">
-                <Avatar size="lg" src={base64 || ""} username="" />
-              </div>
-              <div className="flex-1">
-                <ImageDropzone onChange={setBase64} />
-              </div>
-              <div className="flex justify-center gap-x-5 mt-5">
-                <Button btnWidth="full" btnStyle="outline" onClick={onClose}>
-                  Cancel
-                </Button>
-                <Button
-                  btnWidth="full"
-                  btnStyle="primary"
-                  onClick={updateSubmit}
-                  disabled={!base64}
-                >
-                  Save
-                </Button>
-              </div>
-            </div>
-          </Modal>
-        )}
-      </AnimatePresence>
-    </>
+    <Modal onClose={onClose}>
+      <div className="w-full h-full pt-5 flex flex-col">
+        <div className="flex justify-center mb-5">
+          <Avatar size="lg" src={base64 || ""} username="" />
+        </div>
+        <div className="flex-1">
+          <ImageDropzone onChange={setBase64} />
+        </div>
+        <div className="flex justify-center gap-x-5 mt-5">
+          <Button btnWidth="full" btnStyle="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button btnWidth="full" btnStyle="primary" onClick={updateSubmit} disabled={!base64}>
+            Save
+          </Button>
+        </div>
+      </div>
+    </Modal>
   );
 };
 export default EditProfileModal;
