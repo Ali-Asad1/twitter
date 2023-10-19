@@ -4,13 +4,16 @@ import { useMemo } from "react";
 import { format } from "date-fns";
 import { BiCalendar } from "react-icons/bi";
 
+import { useEditBioModal } from "@/hooks/useEditBioModal";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useUser from "@/hooks/useUser";
+
 import Button from "../common/Button";
 
 const UserBio = ({ username }: { username: string }) => {
   const { data: user } = useUser(username);
   const { data: currentUser } = useCurrentUser();
+  const { onOpen: onOpenEditBioModal } = useEditBioModal();
 
   const userCreateDate = useMemo(() => {
     if (!user?.createdAt) return null;
@@ -22,7 +25,7 @@ const UserBio = ({ username }: { username: string }) => {
     <div className="border-b border-b-slate-6 p-5">
       <div className="flex justify-end mb-4">
         {currentUser?.username === username ? (
-          <Button onClick={() => {}} btnSize="sm" btnStyle="secondary">
+          <Button onClick={onOpenEditBioModal} btnSize="sm" btnStyle="secondary">
             Edit
           </Button>
         ) : (
