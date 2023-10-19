@@ -19,3 +19,7 @@ export const editUserProfile = async (avatar: string) => {
 export const editUserBanner = async (banner: string) => {
   return await axios.patch("/api/user/edit/banner", { banner }).then((res) => res.data);
 };
+
+export const editUserBio = async (name: string, bio: string) => {
+  return await axios.patch("/api/user/edit/name", { name, bio }).then((res) => res.data);
+};
