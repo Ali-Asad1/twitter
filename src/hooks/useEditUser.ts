@@ -1,4 +1,4 @@
-import { editUserBanner, editUserProfile } from "@/services/user";
+import { editUserBanner, editUserBio, editUserProfile } from "@/services/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useEditProfileImage = () => {
@@ -20,6 +20,21 @@ export const useEditBannerImage = () => {
   return useMutation(
     (banner: string) => {
       return editUserBanner(banner);
+    },
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["user", data.username]);
+      },
+    }
+  );
+};
+
+export const useEditBio = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (data: { name: string; bio: string }) => {
+      return editUserBio(data.name, data.bio);
     },
     {
       onSuccess: (data) => {
