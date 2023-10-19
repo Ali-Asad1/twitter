@@ -6,7 +6,7 @@ import prisma from "@/libs/prismadb";
 export async function PATCH(request: NextRequest) {
   const body = await request.json();
   const { bio, name } = body;
-  if (!bio || !name) {
+  if (!name) {
     return new NextResponse("Missing info", { status: 400 });
   }
 
