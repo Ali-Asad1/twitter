@@ -39,6 +39,7 @@ export const useEditBio = () => {
     {
       onSuccess: (data) => {
         queryClient.invalidateQueries(["user", data.username]);
+        queryClient.invalidateQueries(["user", "current"]);
       },
     }
   );
