@@ -1,5 +1,7 @@
 const { createPlugin } = require("windy-radix-palette");
-const colors = createPlugin();
+const colors = createPlugin({
+  opacitySupport: true,
+});
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
