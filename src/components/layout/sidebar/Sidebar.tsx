@@ -14,7 +14,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 
 export default function Sidebar() {
   const session = useSession();
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentUser, isLoading } = useCurrentUser();
 
   const items = {
     authenticated: [
@@ -52,7 +52,7 @@ export default function Sidebar() {
     <div className="col-span-1 h-full pr-6 py-4">
       <div className="flex flex-col items-end lg:items-start space-y-5">
         <SidebarLogo />
-        {session.status === "loading" ? (
+        {session.status === "loading" && isLoading ? (
           Array(4)
             .fill(1)
             .map((_, i) => <SidebarLoadingItem key={i} />)
