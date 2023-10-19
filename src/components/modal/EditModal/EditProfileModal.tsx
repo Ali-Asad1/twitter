@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
 
 import { useEditProfileModal } from "@/hooks/useEditProfileModal";
@@ -15,7 +14,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 
 const EditProfileModal = () => {
   const [base64, setBase64] = useState<string | null | undefined>(null);
-  const { isOpen, onClose } = useEditProfileModal();
+  const { onClose } = useEditProfileModal();
   const { data, isLoading } = useCurrentUser();
   const { mutateAsync: updateAvatar } = useEditProfileImage();
 
