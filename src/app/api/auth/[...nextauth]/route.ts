@@ -11,18 +11,25 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: { label: "email", type: "text" },
+        identity: { label: "identity", type: "text" },
         password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+        if (!credentials?.identity || !credentials?.password) {
           throw new Error("Invalid credential");
         }
 
         const user = await prisma.user
-          .findUnique({
+          .findFirst({
             where: {
-              email: credentials.email,
+              OR: [
+                {
+                  email: credentials.identity,
+                },
+                {
+                  username: credentials.identity,
+                },
+              ],
             },
           })
           .catch((err) => err);
@@ -32,7 +39,7 @@ export const authOptions: AuthOptions = {
         }
 
         if (!user || !user.hashedPassword) {
-          throw new Error("Invalid email");
+          throw new Error("Invalid identifier");
         }
 
         const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword);
@@ -45,6 +52,16 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) token.username = user.username;
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) session.user.username = token.username;
+      return session;
+    },
+  },
   debug: process.env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
