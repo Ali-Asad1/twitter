@@ -15,7 +15,7 @@ const Followbar = () => {
             <div className="w-full h-full flex justify-center items-center">
               <PuffLoader size={30} color="#0090ff" />
             </div>
-          ) : !data.length && error ? (
+          ) : !data?.length && error ? (
             <NotFoundFollowers />
           ) : (
             data.map((user: any) => <UserItem {...user} key={user.id} />)
