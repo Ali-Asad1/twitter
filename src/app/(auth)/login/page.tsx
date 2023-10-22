@@ -1,29 +1,28 @@
 "use client";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useRouter } from "next/navigation";
-import { signIn, useSession } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
-import { getCurrentUser } from "@/services/user";
 import TextField from "@/components/common/form/TextField";
 import Button from "@/components/common/Button";
 
 interface LoginFormValues {
-  email: string;
+  identity: string;
   password: string;
 }
 
 const initialValues: LoginFormValues = {
-  email: "",
+  identity: "",
   password: "",
 };
 
 const validationSchema = Yup.object({
-  email: Yup.string().required("Email is required").email("Invalid email address"),
+  identity: Yup.string().required("Identity is required"),
   password: Yup.string().required("Password is required"),
 });
 
@@ -31,7 +30,7 @@ export default function LoginPage() {
   const { push } = useRouter();
   const session = useSession();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (session.status === "authenticated") {
       push("/");
     }
@@ -40,17 +39,19 @@ export default function LoginPage() {
   const loginHandler = async (values: LoginFormValues) => {
     const toastId = toast.loading("Loading...");
 
-    await signIn("credentials", {
-      ...values,
-      redirect: false,
-    }).then(async (callback) => {
-      if (callback?.ok && !callback.error) {
-        const { name } = await getCurrentUser();
+    try {
+      const response = await signIn("credentials", {
+        ...values,
+        redirect: false,
+      });
+      const userSession = await getSession();
 
-        toast.success(`Welcome ${name || ""} `, {
+      if (response?.ok && !response.error) {
+        toast.success(`Welcome ${userSession?.user.name || ""} `, {
           id: toastId,
         });
-        const url = new URL(callback?.url as string);
+
+        const url = new URL(response.url as string);
         const urlParams = new URLSearchParams(url.search);
         const callbackUrl = urlParams.get("callbackUrl");
 
@@ -61,12 +62,16 @@ export default function LoginPage() {
         }
       }
 
-      if (callback?.error) {
-        toast.error(callback.error, {
+      if (response?.error) {
+        toast.error(response.error, {
           id: toastId,
         });
       }
-    });
+    } catch (err: any) {
+      toast.error("Something is wrong", {
+        id: toastId,
+      });
+    }
   };
 
   return (
@@ -88,7 +93,7 @@ export default function LoginPage() {
         {({ isValid, isSubmitting }) => (
           <Form>
             <div className="space-y-8">
-              <TextField name="email" type="text" label="Email" />
+              <TextField name="identity" type="text" label="Email or Username" />
               <TextField name="password" type="password" label="Password" />
               <Button btnWidth="full" type="submit" disabled={!isValid || isSubmitting}>
                 {isSubmitting ? "loading ..." : "Login"}
