@@ -10,12 +10,9 @@ import SidebarLogo from "./SidebarLogo";
 import SidebarItem from "./SidebarItem";
 import TweetButton from "./TweetButton";
 import SidebarLoadingItem from "./SidebarLoadingItem";
-import useCurrentUser from "@/hooks/useCurrentUser";
 
 export default function Sidebar() {
   const session = useSession();
-  const { data: currentUser, isLoading } = useCurrentUser();
-  console.log(isLoading);
 
   const items = {
     authenticated: [
@@ -31,7 +28,7 @@ export default function Sidebar() {
       },
       {
         label: "Profile",
-        href: currentUser?.username ? `/user/${currentUser?.username || ""}` : "",
+        href: `/user/${session.data?.user.username}`,
         icon: FaUser,
       },
     ],
