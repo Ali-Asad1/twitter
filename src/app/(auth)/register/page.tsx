@@ -56,31 +56,30 @@ export default function RegisterPage() {
     actions: FormikHelpers<RegisterFormValues>
   ) => {
     const toastId = toast.loading("Registering ...");
-    await registerUser({ email, name, password, username })
-      .then((res) => res.data)
-      .then(async () => {
-        toast.success("Successfuly registered", {
-          id: toastId,
-        });
+    try {
+      await registerUser({ email, name, password, username });
 
-        await signIn("credentials", {
-          email,
-          password,
-          redirect: false,
-        }).then((callback) => {
-          if (callback?.ok && !callback.error) {
-            push("/");
-          }
-        });
-      })
-      .catch((err) => {
-        if (err.response.status === 400) {
-          actions.setErrors(err.response.data.errors);
-        }
-        toast.error("Register failed", {
-          id: toastId,
-        });
+      toast.success("Successfuly registered", {
+        id: toastId,
       });
+
+      await signIn("credentials", {
+        identity: username || email,
+        password,
+        redirect: false,
+      }).then((callback) => {
+        if (callback?.ok && !callback.error) {
+          push("/");
+        }
+      });
+    } catch (err: any) {
+      if (err.response.status === 400) {
+        actions.setErrors(err.response.data.errors);
+      }
+      toast.error("Register failed", {
+        id: toastId,
+      });
+    }
   };
 
   return (
