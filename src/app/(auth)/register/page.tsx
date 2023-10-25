@@ -37,11 +37,7 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters")
-    .max(32, "Password must be at most 32 characters")
-    .matches(
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
-      "Your password needs to contain one uppercase letter, one symbol, and a number"
-    ),
+    .max(32, "Password must be at most 32 characters"),
 });
 
 export default function RegisterPage() {
