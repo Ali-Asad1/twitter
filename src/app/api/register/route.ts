@@ -10,8 +10,6 @@ interface ReqBody {
   password: string;
 }
 
-const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -21,17 +19,6 @@ export async function POST(request: Request) {
       return new NextResponse("Missing info", { status: 400 });
     }
 
-    if (!passwordRegex.test(password)) {
-      return NextResponse.json(
-        {
-          errors: {
-            password:
-              "Your password needs to contain one uppercase letter, one symbol, and a number",
-          },
-        },
-        { status: 400, statusText: "bad request" }
-      );
-    }
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = await prisma.user.create({
