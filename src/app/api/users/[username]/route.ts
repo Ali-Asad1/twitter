@@ -38,7 +38,6 @@ export async function GET(req: Request, { params }: { params: { username: string
 
     return NextResponse.json({ ...user, followersCount });
   } catch (error: any) {
-    console.log(error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
