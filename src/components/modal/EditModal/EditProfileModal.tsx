@@ -3,42 +3,64 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+import { useEdgeStore } from "@/libs/edgeStore";
 import { useEditProfileModal } from "@/hooks/useEditProfileModal";
 import { useEditProfileImage } from "@/hooks/useEditUser";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 import ImageDropzone from "@/components/imageDropzone/ImageDropzone";
 import Modal from "../Modal";
 import Avatar from "@/components/user/Avatar";
 import Button from "@/components/common/Button";
-import useCurrentUser from "@/hooks/useCurrentUser";
 
 const EditProfileModal = () => {
-  const [base64, setBase64] = useState<string | null | undefined>(null);
-  const { onClose } = useEditProfileModal();
-  const { data, isLoading } = useCurrentUser();
-  const { mutateAsync: updateAvatar } = useEditProfileImage();
+  const [file, setFile] = useState<File>();
+  const [thumbnail, setThumbnail] = useState<string>();
 
-  const updateSubmit = async () => {
-    const toastId = toast.loading("Updating profile ...");
-    updateAvatar(base64 || "")
-      .then(() => {
+  const { edgestore } = useEdgeStore();
+  const { data, isLoading } = useCurrentUser();
+  const { mutateAsync: mutateAvatar } = useEditProfileImage();
+  const { onClose } = useEditProfileModal();
+
+  const updateAvatar = async () => {
+    if (file) {
+      const toastId = toast.loading("Updating profile ...");
+      try {
+        const res = await edgestore.publicImages.upload({
+          file,
+          input: {
+            category: "avatar",
+            username: data?.username as string,
+          },
+          options: {
+            replaceTargetUrl: data?.profileImage || undefined,
+          },
+        });
+
+        await mutateAvatar(res.url);
+
         toast.success("Update successfuly", {
           id: toastId,
         });
-      })
-      .catch(() => {
+      } catch (err: unknown) {
         toast.error("Update failure!", {
           id: toastId,
         });
-      })
-      .finally(() => {
+      } finally {
         onClose();
-      });
+      }
+    }
+  };
+  const dropzoneOnChange = (file: File) => {
+    setFile(file);
+
+    const preview = URL.createObjectURL(file);
+    setThumbnail(preview);
   };
 
   useEffect(() => {
     if (!isLoading) {
-      setBase64(data?.profileImage);
+      setThumbnail(data?.profileImage || "");
     }
   }, [isLoading]);
 
@@ -46,16 +68,21 @@ const EditProfileModal = () => {
     <Modal onClose={onClose}>
       <div className="w-full h-full pt-5 flex flex-col">
         <div className="flex justify-center mb-5">
-          <Avatar size="lg" src={base64 || ""} username="" />
+          <Avatar size="lg" src={thumbnail || ""} username="" />
         </div>
         <div className="flex-1">
-          <ImageDropzone onChange={setBase64} />
+          <ImageDropzone onChange={dropzoneOnChange} />
         </div>
         <div className="flex justify-center gap-x-5 mt-5">
           <Button btnWidth="full" btnStyle="outline" onClick={onClose}>
             Cancel
           </Button>
-          <Button btnWidth="full" btnStyle="primary" onClick={updateSubmit} disabled={!base64}>
+          <Button
+            btnWidth="full"
+            btnStyle="primary"
+            onClick={updateAvatar}
+            disabled={!thumbnail || thumbnail === data?.profileImage}
+          >
             Save
           </Button>
         </div>
