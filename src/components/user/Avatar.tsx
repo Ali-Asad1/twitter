@@ -52,12 +52,13 @@ const Avatar: React.FC<AvatarProps> = ({ username, border, size, src, className,
     >
       <Image
         src={imageSrc}
+        fill
+        objectFit="cover"
+        quality={80}
         alt="avatar"
         placeholder="blur"
         blurDataURL={imageSrc}
         loading="lazy"
-        fill
-        objectFit="cover"
       />
     </div>
   );
