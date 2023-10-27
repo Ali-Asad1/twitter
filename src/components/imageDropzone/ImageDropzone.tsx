@@ -1,35 +1,15 @@
 import React, { useMemo } from "react";
-import { DropEvent, FileRejection, useDropzone } from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 
 import { cn } from "@/utils/clsx";
 
 import Button from "../common/Button";
 
-type onDrop = <T extends File>(
-  acceptedFiles: T[],
-  fileRejections: FileRejection[],
-  event: DropEvent
-) => void;
-
 type ImageDropzoneProps = {
-  onChange: (base64: string) => void;
+  onChange: (file: File) => void | Promise<void>;
 };
 
 const ImageDropzone: React.FC<ImageDropzoneProps> = ({ onChange }) => {
-  const changeHandler = (base64: string) => {
-    onChange(base64);
-  };
-
-  const dropHandler: onDrop = (files) => {
-    const file = files[0];
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      changeHandler(event.target?.result as string);
-    };
-
-    reader.readAsDataURL(file);
-  };
   const { getInputProps, getRootProps, open, isFocused, isDragAccept, isDragReject } = useDropzone({
     accept: {
       "image/jpeg": [".jpg", ".jpeg"],
@@ -37,7 +17,13 @@ const ImageDropzone: React.FC<ImageDropzoneProps> = ({ onChange }) => {
     },
     noClick: true,
     noKeyboard: true,
-    onDrop: dropHandler,
+    multiple: false,
+    onDrop: (acceptedFile) => {
+      const file = acceptedFile[0];
+      if (file) {
+        onChange(file);
+      }
+    },
   });
 
   const dropzoneStyle = useMemo(
