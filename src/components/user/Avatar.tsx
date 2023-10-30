@@ -36,15 +36,18 @@ const Avatar: React.FC<AvatarProps> = ({ username, border, size, src, className,
   const { push } = useRouter();
 
   const imageSrc = src || "/images/placeholder.png";
-  const clickHandler = () => {
+  const clickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+
     if (!clickAble) {
       return null;
     }
     push(`/user/${username}`);
   };
+
   return (
     <div
-      onClick={() => clickHandler()}
+      onClick={(e) => clickHandler(e)}
       className={cn(
         avatarVariants({ border, className, size }),
         clickAble && "hover:opacity-90 active:opacity-80 cursor-pointer"
@@ -53,6 +56,7 @@ const Avatar: React.FC<AvatarProps> = ({ username, border, size, src, className,
       <Image
         src={imageSrc}
         fill
+        sizes="50"
         objectFit="cover"
         quality={80}
         alt="avatar"
