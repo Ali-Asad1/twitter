@@ -1,12 +1,14 @@
 "use client";
 
 import { PuffLoader } from "react-spinners";
+import { notFound } from "next/navigation";
+
+import useUser from "@/hooks/useUser";
 
 import Header from "@/components/header/Header";
 import UserHero from "@/components/user/UserHero";
-import useUser from "@/hooks/useUser";
 import UserBio from "@/components/user/UserBio";
-import { notFound } from "next/navigation";
+import PostFeed from "@/components/post/PostFeed";
 
 const UserPage = ({ params }: { params: { username: string } }) => {
   const { username } = params;
@@ -27,6 +29,7 @@ const UserPage = ({ params }: { params: { username: string } }) => {
       <Header lable={data?.username as string} showBackArrow />
       <UserHero username={data?.username as string} />
       <UserBio username={data?.username as string} />
+      <PostFeed userId={data?.id} />
     </>
   );
 };
