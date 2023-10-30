@@ -5,21 +5,14 @@ import { formatDistanceToNowStrict } from "date-fns";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
+import { useLike } from "@/hooks/useLike";
 import { PostType } from "@/types/post.type";
 
 import Avatar from "../user/Avatar";
 
-const PostItem: React.FC<PostType> = ({
-  body,
-  comments,
-  createdAt,
-  id,
-  likedIds,
-  user,
-  userId,
-}) => {
+const PostItem: React.FC<PostType> = ({ body, comments, createdAt, id, likedIds, user }) => {
   const { push } = useRouter();
-
+  const { likeCount, hasLiked, toggleLike } = useLike(id, likedIds);
   const createAtDistance = formatDistanceToNowStrict(new Date(createdAt));
 
   return (
@@ -54,11 +47,16 @@ const PostItem: React.FC<PostType> = ({
             <div
               onClick={(e) => {
                 e.stopPropagation();
+                toggleLike();
               }}
               className="flex items-center gap-x-1 cursor-pointer hover:text-red-9 transition-colors"
             >
-              <FaHeart className="fill-red-9" />
-              <span className="text-sm">{likedIds?.length || 0}</span>
+              {hasLiked ? (
+                <FaHeart className="fill-red-9" />
+              ) : (
+                <FaRegHeart className="fill-red-9" />
+              )}
+              <span className="text-sm">{likeCount}</span>
             </div>
           </div>
         </div>
