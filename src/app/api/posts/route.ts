@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const { body }: any = req.json();
+  const { body }: any = await req.json();
 
   try {
     const currentUser = await getCurrentUser();
