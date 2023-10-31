@@ -1,5 +1,9 @@
 import axios from "axios";
 
+export const getPost = async (postId: string) => {
+  return await axios.get(`/api/posts/${postId}`).then((res) => res.data);
+};
+
 export const getAllPosts = async (url: string) => {
   return await axios.get(url).then((res) => res.data);
 };
