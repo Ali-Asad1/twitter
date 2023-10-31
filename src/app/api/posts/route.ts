@@ -13,7 +13,13 @@ export async function GET(req: NextRequest) {
         },
         include: {
           comments: true,
-          user: true,
+          user: {
+            select: {
+              name: true,
+              username: true,
+              profileImage: true,
+            },
+          },
         },
         orderBy: {
           createdAt: "desc",
@@ -26,7 +32,13 @@ export async function GET(req: NextRequest) {
       const posts = await prisma.post.findMany({
         include: {
           comments: true,
-          user: true,
+          user: {
+            select: {
+              name: true,
+              username: true,
+              profileImage: true,
+            },
+          },
         },
         orderBy: {
           createdAt: "desc",
