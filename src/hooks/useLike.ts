@@ -18,11 +18,11 @@ export const useLike = (postId: string, likeList?: string[]) => {
     if (hasLiked) {
       setLikeCount((prev) => prev - 1);
       setHasLiked(false);
-      axios.delete("/api/posts/like", { data: { postId } });
+      axios.delete("/api/posts/like", { data: { postId } }).catch();
     } else {
       setLikeCount((prev) => prev + 1);
       setHasLiked(true);
-      axios.post("/api/posts/like", { postId });
+      axios.post("/api/posts/like", { postId }).catch();
     }
   };
 
