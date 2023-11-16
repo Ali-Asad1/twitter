@@ -10,7 +10,17 @@ export async function GET(req: NextRequest, { params }: { params: { postId: stri
         id: reqPostId,
       },
       include: {
-        comments: true,
+        comments: {
+          include: {
+            user: {
+              select: {
+                name: true,
+                username: true,
+                profileImage: true,
+              },
+            },
+          },
+        },
         user: {
           select: {
             name: true,
