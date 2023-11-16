@@ -17,6 +17,7 @@ module.exports = {
         chirp: ["var(--font-chirp)"],
         poppins: ["var(--font-poppins)"],
         roboto: ["var(--font-roboto)"],
+        vazirmatn: ["var(--font-vazirmatn)"],
       },
     },
   },

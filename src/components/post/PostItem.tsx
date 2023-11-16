@@ -33,7 +33,7 @@ const PostItem: React.FC<PostType> = ({ body, comments, createdAt, id, likedIds,
             <span className="text-sm text-slate-11">@{user.username}</span>
             <span className="text-sm text-slate-11">{createAtDistance}</span>
           </div>
-          <p className="text-[14px]">{body}</p>
+          <p className="font-vazirmatn text-[14px]">{body}</p>
           <div className="flex gap-x-10 text-slate-11">
             <div
               onClick={(e) => {

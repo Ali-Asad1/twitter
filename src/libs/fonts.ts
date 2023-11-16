@@ -1,4 +1,4 @@
-import { Poppins, Roboto } from "next/font/google";
+import { Poppins, Roboto, Vazirmatn } from "next/font/google";
 import localFont from "next/font/local";
 
 export const poppins = Poppins({
@@ -51,5 +51,12 @@ export const chirp = localFont({
     },
   ],
   variable: "--font-chirp",
+  preload: true,
+});
+
+export const vazirmatn = Vazirmatn({
+  subsets: ["arabic"],
+  weight: ["100", "300", "400", "600", "700", "900"],
+  variable: "--font-vazirmatn",
   preload: true,
 });

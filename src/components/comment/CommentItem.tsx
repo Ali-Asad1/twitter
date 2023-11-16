@@ -19,7 +19,7 @@ const CommentItem: React.FC<CommentType> = ({ body, createAt, id, user }) => {
             <span className="text-sm text-slate-11">@{user.username}</span>
             <span className="text-sm text-slate-11">{createAtDistance}</span>
           </div>
-          <p className="text-[14px]">{body}</p>
+          <p className="font-vazirmatn text-[14px]">{body}</p>
         </div>
       </div>
     </div>

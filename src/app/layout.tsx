@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { poppins, roboto, chirp } from "@/libs/fonts";
+import { poppins, roboto, chirp, vazirmatn } from "@/libs/fonts";
 
 import Providers from "./providers";
 import ToastContext from "@/context/ToastContext";
@@ -18,7 +18,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${roboto.variable} ${chirp.variable} dark`}
+      className={`${poppins.variable} ${roboto.variable} ${chirp.variable} ${vazirmatn.variable} dark`}
       style={{ colorScheme: "dark" }}
       suppressHydrationWarning
     >
