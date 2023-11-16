@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const { body }: any = await req.json();
+  const { body }: { body: string } = await req.json();
 
   try {
     const currentUser = await getCurrentUser();
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    if (!body) {
+    if (!body.trim()) {
       return new NextResponse("Missing info", { status: 400 });
     }
 
