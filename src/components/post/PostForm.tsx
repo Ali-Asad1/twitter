@@ -13,7 +13,7 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
-  tweet: Yup.string().required().max(300),
+  tweet: Yup.string().required().max(300).trim(),
 });
 
 const PostForm = () => {
