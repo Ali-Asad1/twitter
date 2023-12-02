@@ -33,14 +33,14 @@ const UserHero = ({ username }: { username: string }) => {
       </div>
       {currentUser?.id === user?.id && (
         <div className="absolute z-10 right-2 bottom-2">
-          <EditBtn onClick={onOpenBannerModal} />
+          <EditBtn btnType="icon" onClick={onOpenBannerModal} />
         </div>
       )}
 
       <div className="absolute bottom-0 left-5 translate-y-[50%]">
         {currentUser?.id === user?.id && (
           <div className="absolute z-10 right-0 bottom-0">
-            <EditBtn onClick={onOpenProfileModal} />
+            <EditBtn btnType="icon" onClick={onOpenProfileModal} />
           </div>
         )}
         <Avatar username={username} src={user?.profileImage} border="lg" size="lg" />
