@@ -19,6 +19,7 @@ export async function GET(req: Request, { params }: { params: { username: string
         coverImage: true,
         bio: true,
         followingIds: true,
+        followerIds: true,
         posts: true,
         createdAt: true,
       },
@@ -28,15 +29,7 @@ export async function GET(req: Request, { params }: { params: { username: string
       return new NextResponse("user not found", { status: 404 });
     }
 
-    const followersCount = await prisma.user.count({
-      where: {
-        followingIds: {
-          has: user?.id,
-        },
-      },
-    });
-
-    return NextResponse.json({ ...user, followersCount });
+    return NextResponse.json(user);
   } catch (error: any) {
     return new NextResponse("Internal Error", { status: 500 });
   }
