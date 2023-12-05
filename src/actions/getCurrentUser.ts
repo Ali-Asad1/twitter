@@ -22,6 +22,7 @@ const getCurrentUser = async () => {
         coverImage: true,
         bio: true,
         followingIds: true,
+        followerIds: true,
         posts: true,
         createdAt: true,
       },
@@ -33,6 +34,7 @@ const getCurrentUser = async () => {
 
     return currentUser;
   } catch (error: any) {
+    console.log(error);
     return null;
   }
 };
