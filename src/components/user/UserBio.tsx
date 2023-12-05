@@ -8,11 +8,13 @@ import { useEditBioModal } from "@/hooks/useEditBioModal";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useUser from "@/hooks/useUser";
 
+import FollowBtn from "./FollowBtn";
+import EditBtn from "./EditBtn";
 import Button from "../common/Button";
 
 const UserBio = ({ username }: { username: string }) => {
   const { data: user } = useUser(username);
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentUser, isLoading } = useCurrentUser();
   const { onOpen: onOpenEditBioModal } = useEditBioModal();
 
   const userCreateDate = useMemo(() => {
@@ -24,14 +26,12 @@ const UserBio = ({ username }: { username: string }) => {
   return (
     <div className="border-b border-b-slate-6 p-5">
       <div className="flex justify-end mb-4">
-        {currentUser?.username === username ? (
-          <Button onClick={onOpenEditBioModal} btnSize="sm" btnStyle="secondary">
-            Edit
-          </Button>
+        {isLoading ? (
+          <Button btnSize="sm" btnStyle="tertiary"></Button>
+        ) : currentUser?.username === username ? (
+          <EditBtn onClick={onOpenEditBioModal} btnType="default" />
         ) : (
-          <Button onClick={() => {}} btnSize="sm">
-            Follow
-          </Button>
+          <FollowBtn userId={user?.id || null} username={username} />
         )}
       </div>
       <div className="flex flex-col mb-4">
@@ -46,7 +46,7 @@ const UserBio = ({ username }: { username: string }) => {
         </div>
         <div className="flex gap-x-4 mt-4">
           <div className="flex gap-x-1">
-            <span className="text-sm">{user?.followersCount || 0}</span>
+            <span className="text-sm">{user?.followerIds?.length || 0}</span>
             <p className="text-sm text-slate-10">followers</p>
           </div>
           <div className="flex gap-x-1">
