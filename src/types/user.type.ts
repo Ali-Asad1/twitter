@@ -15,6 +15,7 @@ export type UserType = {
   createdAt: Date;
   updateAt: Date;
   followingIds: string[];
+  followerIds: string[];
   hasNotification: boolean;
   posts: PostType[];
   comments: CommentType[];
